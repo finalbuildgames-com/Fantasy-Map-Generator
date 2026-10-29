@@ -19,5 +19,8 @@ Build and deploy (on foundry):
 nginx: `location = /map-candidate/` and `location ^~ /map-candidate/` in `/etc/nginx/conf.d/mmo.finalbuildgames.com.conf`.
 `rsync --delete` removes `candidate.map`, so copy it again after every deploy.
 
+Cities link to our TownGeneratorOS build at https://mmo.finalbuildgames.com/town-candidate/ (size and seed only).
+Villages and dwellings still link to watabou.github.io (no source available).
+
 Sibling forks: finalbuildgames-com/Armoria (heraldry, used for emblems) and finalbuildgames-com/TownGeneratorOS
 (Watabou's GPL-3 city generator source).

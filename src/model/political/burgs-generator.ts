@@ -661,7 +661,8 @@ class BurgModule {
 
     const style = "natural";
 
-    const url = new URL("https://watabou.github.io/city-generator/");
+    // Divinity Online: our TownGeneratorOS fork (reads size and seed; other parameters are ignored)
+    const url = new URL("https://mmo.finalbuildgames.com/town-candidate/");
     url.search = new URLSearchParams({
       name: name || "",
       population: population.toString(),
