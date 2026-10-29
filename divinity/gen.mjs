@@ -12,7 +12,7 @@ await page.goto(`https://mmo.finalbuildgames.com/map-candidate/?seed=${seed}&wid
 await page.waitForFunction(() => window.FMG?.pack?.burgs?.length > 5 && window.FMG?.pack?.states?.length > 2, null, { timeout: 180000 });
 await page.waitForTimeout(6000);
 const info = await page.evaluate(() => { const P = FMG.pack; return { template: FMG.options?.generation?.template, burgs: P.burgs.length-1, states: P.states.length-1,
-  cultures: P.cultures.map(c=>c.name).slice(1), statesN: P.states.slice(1).map(s=>s.name), land: P.cells.h.filter(h=>h>=20).length, cells: P.cells.h.length }; });
+  cultures: P.cultures.map(c=>c.name).slice(1), statesN: P.states.slice(1).map(s=>s.fullName||s.name), burgN: P.burgs.slice(1).filter((_,i)=>i%35==0).map(b=>b.name), land: P.cells.h.filter(h=>h>=20).length, cells: P.cells.h.length }; });
 await page.screenshot({ path: out + ".png" });
 fs.writeFileSync(out + ".map", await page.evaluate(() => FMG.Services.Save.prepareMapData()));
 console.log(JSON.stringify({ seed, ...info, secs: (Date.now()-t0)/1000 }));

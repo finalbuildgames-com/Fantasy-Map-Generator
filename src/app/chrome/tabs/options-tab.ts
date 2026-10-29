@@ -306,6 +306,7 @@ const TEMPLATE = /* html */ `
           <option value="english" data-max="10">${t("English")}</option>
           <option value="antique" data-max="10">${t("Antique")}</option>
           <option value="highFantasy" data-max="17">${t("High Fantasy")}</option>
+          <option value="western" data-max="10">${t("Western European")}</option>
           <option value="darkFantasy" data-max="18">${t("Dark Fantasy")}</option>
           <option value="random" data-max="100">${t("Random")}</option>
         </select>

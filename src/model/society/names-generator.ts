@@ -68,6 +68,20 @@ class NamesGenerator {
 
   clearChains(): void {
     this.chains = [];
+    this.usedReal.clear();
+  }
+
+  // Divinity Online ("western" culture set): real historical place names from the base, each used once
+  private usedReal = new Set<string>();
+  private realName(base: number, max?: number): string | null {
+    if (options.map.cultures.set !== "western" || !this.nameBases[base]?.b) return null;
+    const pool = this.nameBases[base].b.split(",").map(name => name.trim()).filter(name => name && !this.usedReal.has(name));
+    const fitting = max ? pool.filter(name => name.length <= max + 2) : pool;
+    const choices = fitting.length ? fitting : pool;
+    if (!choices.length) return null;
+    const name = ra(choices);
+    this.usedReal.add(name);
+    return name;
   }
 
   // generate name using Markov's chain
@@ -86,6 +100,9 @@ class NamesGenerator {
         return "ERROR";
       }
     }
+
+    const real = this.realName(base, max);
+    if (real) return real;
 
     if (!this.chains[base]) this.updateChain(base);
 
@@ -207,6 +224,7 @@ class NamesGenerator {
       return "ERROR";
     }
     if (base === undefined) base = pack.cultures[culture].base;
+    if (options.map.cultures.set === "western") return name; // "Kingdom of Ashford", not "Ashfordia"
 
     // exclude endings inappropriate for states name
     if (name.includes(" ")) name = capitalize(name.replace(/ /g, "").toLowerCase()); // don't allow multiword state names

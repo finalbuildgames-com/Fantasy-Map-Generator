@@ -72,6 +72,22 @@ class CulturesGenerator {
     const sf = (cell: number, fee = 4) =>
       cells.haven[cell] && pack.features[cells.f[cells.haven[cell]]].type !== "lake" ? 1 : fee; // not on sea coast fee
 
+    // Divinity Online: Tudor-era Western Europe only; English twice so the island kingdoms read English
+    if (options.map.cultures.set === "western") {
+      return [
+        { name: "Angshire", base: 1, odd: 1, sort: (i: number) => n(i) / td(i, 10) / sf(i), shield: "wedged" },
+        { name: "Wessane", base: 1, odd: 1, sort: (i: number) => n(i) / td(i, 11), shield: "heater" },
+        { name: "Luari", base: 2, odd: 1, sort: (i: number) => n(i) / td(i, 12) / bd(i, [6, 8]), shield: "oldFrench" },
+        { name: "Shwazen", base: 0, odd: 1, sort: (i: number) => n(i) / td(i, 10) / bd(i, [6, 8]), shield: "swiss" },
+        { name: "Tallian", base: 3, odd: 1, sort: (i: number) => n(i) / td(i, 15), shield: "italian" },
+        { name: "Astellian", base: 4, odd: 1, sort: (i: number) => n(i) / td(i, 16), shield: "spanish" },
+        { name: "Portuzian", base: 13, odd: 1, sort: (i: number) => n(i) / td(i, 17) / sf(i), shield: "spanish" },
+        { name: "Norse", base: 6, odd: 1, sort: (i: number) => n(i) / td(i, 5), shield: "heater" },
+        { name: "Keltan", base: 22, odd: 1, sort: (i: number) => (n(i) / td(i, 11) / bd(i, [6, 8])) * t[i], shield: "oldFrench" },
+        { name: "Romian", base: 8, odd: 0.3, sort: (i: number) => n(i) / td(i, 15) / t[i], shield: "roman" }
+      ];
+    }
+
     if (options.map.cultures.set === "european") {
       return [
         {
